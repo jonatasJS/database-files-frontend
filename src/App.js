@@ -21,7 +21,7 @@ class App extends Component {
     const response = await api.get("posts");
 
     this.setState({
-      uploadedFiles: response.data.map(file => ({
+      uploadedFiles: response?.data?.map(file => ({
         id: file._id,
         name: file.name,
         readableSize: filesize(file.size),
@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   handleUpload = files => {
-    const uploadedFiles = files.map(file => ({
+    const uploadedFiles = files?.map(file => ({
       file,
       id: uniqueId(),
       name: file.name,
