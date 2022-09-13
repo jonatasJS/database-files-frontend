@@ -28,9 +28,9 @@ class App extends Component {
         id: file._id,
         name: file.name,
         readableSize: filesize(file.size),
-        preview: file.url,
+        preview: file?.url,
         uploaded: true,
-        url: file.url,
+        url: file?.url,
       })),
     });
   }
