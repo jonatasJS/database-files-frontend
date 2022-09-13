@@ -5,38 +5,38 @@ import axios from "axios";
 // import { motion } from "framer-motion";
 import { BsArrowDown as ArrowDown } from "react-icons/bs";
 
-const api = axios.create({
-  baseURL: "https://4000-jonatasjs-databasefiles-j0radgdo8v7.ws-us64.gitpod.io"
-});
-
 import GlobalStyle from "./styles/global";
 import { Container, Content, Header } from "./styles";
 
 import Upload from "./components/Upload";
 import FileList from "./components/FileList";
 
+const api = axios.create({
+  baseURL: "https://4000-jonatasjs-databasefiles-j0radgdo8v7.ws-us64.gitpod.io",
+});
+
 class App extends Component {
   state = {
-    uploadedFiles: []
+    uploadedFiles: [],
   };
 
   async componentDidMount() {
     const response = await api.get("posts");
 
     this.setState({
-      uploadedFiles: response?.data?.map(file => ({
+      uploadedFiles: response?.data?.map((file) => ({
         id: file._id,
         name: file.name,
         readableSize: filesize(file.size),
         preview: file.url,
         uploaded: true,
-        url: file.url
-      }))
+        url: file.url,
+      })),
     });
   }
 
-  handleUpload = files => {
-    const uploadedFiles = files?.map(file => ({
+  handleUpload = (files) => {
+    const uploadedFiles = files?.map((file) => ({
       file,
       id: uniqueId(),
       name: file.name,
@@ -45,11 +45,11 @@ class App extends Component {
       progress: 0,
       uploaded: false,
       error: false,
-      url: null
+      url: null,
     }));
 
     this.setState({
-      uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles)
+      uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles),
     });
 
     uploadedFiles.forEach(this.processUpload);
@@ -57,53 +57,55 @@ class App extends Component {
 
   updateFile = (id, data) => {
     this.setState({
-      uploadedFiles: this.state.uploadedFiles.map(uploadedFile => {
+      uploadedFiles: this.state.uploadedFiles.map((uploadedFile) => {
         return id === uploadedFile.id
           ? { ...uploadedFile, ...data }
           : uploadedFile;
-      })
+      }),
     });
   };
 
-  processUpload = uploadedFile => {
+  processUpload = (uploadedFile) => {
     const data = new FormData();
 
     data.append("file", uploadedFile.file, uploadedFile.name);
 
     api
       .post("posts", data, {
-        onUploadProgress: e => {
+        onUploadProgress: (e) => {
           const progress = parseInt(Math.round((e.loaded * 100) / e.total));
 
           this.updateFile(uploadedFile.id, {
-            progress
+            progress,
           });
-        }
+        },
       })
-      .then(response => {
+      .then((response) => {
         this.updateFile(uploadedFile.id, {
           uploaded: true,
           id: response.data._id,
-          url: response.data.url
+          url: response.data.url,
         });
       })
       .catch(() => {
         this.updateFile(uploadedFile.id, {
-          error: true
+          error: true,
         });
       });
   };
 
-  handleDelete = async id => {
+  handleDelete = async (id) => {
     await api.delete(`posts/${id}`);
 
     this.setState({
-      uploadedFiles: this.state.uploadedFiles.filter(file => file.id !== id)
+      uploadedFiles: this.state.uploadedFiles.filter((file) => file.id !== id),
     });
   };
 
   componentWillUnmount() {
-    this.state.uploadedFiles.forEach(file => URL.revokeObjectURL(file.preview));
+    this.state.uploadedFiles.forEach((file) =>
+      URL.revokeObjectURL(file.preview)
+    );
   }
 
   render() {
@@ -116,28 +118,28 @@ class App extends Component {
           <div>
             <ArrowDown
               style={{
-                width: '1rem',
-                height: '1rem',
-                marginBottom: "-8px"
+                width: "1rem",
+                height: "1rem",
+                marginBottom: "-8px",
               }}
               width={100}
               height={100}
             />
             <ArrowDown
               style={{
-                width: '1.5rem',
-                height: '1.5rem',
-                marginBottom: "-8px"
+                width: "1.5rem",
+                height: "1.5rem",
+                marginBottom: "-8px",
               }}
-              teste='1'
+              teste="1"
               width={100}
               height={100}
             />
             <ArrowDown
               style={{
-                width: '1rem',
-                height: '1rem',
-                marginBottom: "-8px"
+                width: "1rem",
+                height: "1rem",
+                marginBottom: "-8px",
               }}
               width={100}
               height={100}
