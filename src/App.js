@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
+import axios from "axios";
 // import { motion } from "framer-motion";
 import { BsArrowDown as ArrowDown } from "react-icons/bs";
 
