@@ -12,7 +12,7 @@ import Upload from "./components/Upload";
 import FileList from "./components/FileList";
 
 const api = axios.create({
-  baseURL: "https://4000-jonatasjs-databasefiles-j0radgdo8v7.ws-us64.gitpod.io",
+  baseURL: "https://database-files-backend.herokuapp.com",
 });
 
 class App extends Component {
