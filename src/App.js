@@ -148,7 +148,7 @@ class App extends Component {
         </Header>
         <Content>
           <Upload onUpload={this.handleUpload} />
-          {!!uploadedFiles.length && (
+          {!uploadedFiles.length && (
             <FileList files={uploadedFiles} onDelete={this.handleDelete} />
           )}
         </Content>

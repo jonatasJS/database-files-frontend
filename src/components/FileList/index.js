@@ -5,10 +5,15 @@ import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
 import { Container, FileInfo, FileInfoData, Preview } from "./styles";
 
 export default class FileList extends Component {
+  teste = () => {
+    console.log("teste");
+  };
+
   render() {
     const { files, onDelete } = this.props;
     return (
       <Container>
+        {this.teste()}
         {files.map((uploadedFile) => (
           <li key={uploadedFile.id}>
             <FileInfo>
