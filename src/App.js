@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { BsArrowDown as ArrowDown } from "react-icons/bs";
 
-import api from "./services/api";
+const api = axios.create({
+  baseURL: "https://4000-jonatasjs-databasefiles-j0radgdo8v7.ws-us64.gitpod.io"
+});
 
 import GlobalStyle from "./styles/global";
 import { Container, Content, Header } from "./styles";
