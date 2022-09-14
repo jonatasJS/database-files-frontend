@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { BsArrowDown } from "react-icons/bs";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
   /* height: 100%; */
@@ -28,16 +27,35 @@ export const Header = styled.header`
   text-align: center;
   flex-direction: column;
   gap: 10px;
-  
+
   h1 {
     font-size: 1.4rem;
     color: rgb(255, 255, 254);
   }
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
 `;
 
-export const ArrowDown = styled(BsArrowDown)`
-  color: rgb(255, 255, 254);
-  fill: rgb(255, 255, 254);
+const arrowDownAnim = keyframes`
+  from {
+    transform: translateY(-5px);
+  }
+
+  to {
+    transform: translateY(5px)
+  }
+`;
+
+export const ArrowDown = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${arrowDownAnim} ${props => props.teste}s infinite alternate linear;
 `;
 
 export const Content = styled.div`

@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
 import api from "./services/api";
-import { BsArrowDown as ArrowDown } from "react-icons/bs";
 import { ToastContainer, toast } from 'react-toastify';
 
+import { BsArrowDown } from "react-icons/bs";
+
 import GlobalStyle from "./styles/global";
-import { Container, Content, Header } from "./styles";
+import { ArrowDown, Container, Content, Header } from "./styles";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Upload from "./components/Upload";
@@ -138,38 +139,50 @@ class App extends Component {
           <h1>Guarde seus arquivos na nuvem.</h1>
           <div>
             <ArrowDown
-              style={{
-                width: "1rem",
-                height: "1rem",
-                marginBottom: "-8px",
-              }}
-              width={100}
-              height={100}
-              color="#7159c1"
-              strokeWidth={1.5}
-            />
+              teste="4"
+            >
+              <BsArrowDown
+                style={{
+                  width: "1rem",
+                  height: "1rem",
+                  marginBottom: "-8px",
+                }}
+                width={100}
+                height={100}
+                color="#7159c1"
+                strokeWidth={1.5}
+              />
+            </ArrowDown>
             <ArrowDown
-              style={{
-                width: "1.5rem",
-                height: "1.5rem",
-                marginBottom: "-8px",
-              }}
-              width={100}
-              height={100}
-              color="#7159c1"
-              strokeWidth={1.5}
-            />
+              teste="2"
+            >
+              <BsArrowDown
+                style={{
+                  width: "1.5rem",
+                  height: "1.5rem",
+                  marginBottom: "-8px",
+                }}
+                width={100}
+                height={100}
+                color="#7159c1"
+                strokeWidth={1.5}
+              />
+            </ArrowDown>
             <ArrowDown
-              style={{
-                width: "1rem",
-                height: "1rem",
-                marginBottom: "-8px",
-              }}
-              strokeWidth={1.5}
-              color="#7159c1"
-              width={100}
-              height={100}
-            />
+              teste="4"
+            >
+              <BsArrowDown
+                style={{
+                  width: "1rem",
+                  height: "1rem",
+                  marginBottom: "-8px",
+                }}
+                strokeWidth={1.5}
+                color="#7159c1"
+                width={100}
+                height={100}
+              />
+            </ArrowDown>
           </div>
         </Header>
         <Content>
