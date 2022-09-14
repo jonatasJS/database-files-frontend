@@ -12,7 +12,7 @@ import Upload from "./components/Upload";
 import FileList from "./components/FileList";
 
 const api = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: process.env.LOCALHOST_URL || "https://database-files-backend.herokuapp.com/",
 });
 
 class App extends Component {
