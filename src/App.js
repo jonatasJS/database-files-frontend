@@ -12,7 +12,7 @@ import Upload from "./components/Upload";
 import FileList from "./components/FileList";
 
 const api = axios.create({
-  baseURL: "https://database-files-backend.herokuapp.com",
+  baseURL: "http://localhost:4000",
 });
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   handleUpload = (files) => {
-    const uploadedFiles = files?.map((file) => ({
+    const uploadedFiles = files.map((file) => ({
       file,
       id: uniqueId(),
       name: file.name,
@@ -48,9 +48,20 @@ class App extends Component {
       url: null,
     }));
 
-    this.setState({
-      uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles),
-    });
+    (async () => {
+      const response = await api.get("posts");
+      
+      this.setState({
+        uploadedFiles:  response?.data?.map((file) => ({
+          id: file._id,
+          name: file.name,
+          readableSize: filesize(file.size),
+          preview: file?.url,
+          uploaded: true,
+          url: file?.url,
+        }))
+      });
+    })();
 
     uploadedFiles.forEach(this.processUpload);
   };
@@ -148,7 +159,7 @@ class App extends Component {
         </Header>
         <Content>
           <Upload onUpload={this.handleUpload} />
-          {!uploadedFiles.length && (
+          {!!uploadedFiles.length && (
             <FileList files={uploadedFiles} onDelete={this.handleDelete} />
           )}
         </Content>
