@@ -1,13 +1,40 @@
 import React, { Component } from "react";
 import * as CircularProgressbar from "react-circular-progressbar";
-import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
+import { motion } from "framer-motion";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { toast } from 'react-toastify';
 
-import { Container, FileInfo, FileInfoData, ItensStatus, Preview } from "./styles";
+import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
+import { IoMdTrash } from "react-icons/io";
+
+import {
+  Container,
+  FileInfo,
+  FileInfoData,
+  ItensStatus,
+  Preview,
+} from "./styles";
 
 export default class FileList extends Component {
   render() {
     return (
-      <Container>
+      <Container
+        initial={{
+          opacity: 0,
+          y: 50,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        exit={{
+          opacity: 0,
+          y: 50,
+        }}
+        transition={{
+          duration: 0.5,
+        }}
+      >
         {this.props.files.map(
           ({
             id,
@@ -20,19 +47,24 @@ export default class FileList extends Component {
             url,
           }) => {
             return (
-              <li key={`${id}`}>
+              <motion.li
+                key={`${id}`}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 <FileInfo>
                   <Preview src={preview} />
                   <FileInfoData>
-                    <strong>{name}</strong>
-                    <span>
-                      {readableSize}{" "}
-                      {!!url && (
-                        <button onClick={() => this.props.onDelete(id)}>
-                          Excluir
-                        </button>
-                      )}
-                    </span>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Visualizar foto"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <strong>{name}</strong>
+                    </a>
+                    <span>{readableSize} </span>
                   </FileInfoData>
                 </FileInfo>
 
@@ -52,20 +84,45 @@ export default class FileList extends Component {
 
                   <ItensStatus>
                     {url && (
-                      <a href={url} target="_blank" rel="noopener noreferrer">
-                        <MdLink
-                          style={{ marginRight: 8 }}
-                          size={24}
-                          color="#222"
-                        />
-                      </a>
+                      <CopyToClipboard
+                        text={url}
+                      >
+                        <motion.a
+                          whileHover={{ scale: 1.2 }}
+                          whileTap={{ scale: 0.8 }}
+                          onClick={() => toast('Link copiado com sucesso!', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            theme: 'dark'
+                          })}
+                        >
+                          <MdLink
+                            style={{ marginRight: 8 }}
+                            size={24}
+                            color="#ede9e2"
+                          />
+                        </motion.a>
+                      </CopyToClipboard>
                     )}
 
-                    {uploaded && <MdCheckCircle size={24} color="#78e5d5" />}
-                    {error && <MdError size={24} color="#e57878" />}
+                    {uploaded && <MdCheckCircle size={24} color="#00ff00bb" />}
+                    {error && <MdError size={24} color="#c00" />}
+                    {!!url && (
+                      <motion.button
+                        onClick={() => this.props.onDelete(id)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                      >
+                        <IoMdTrash size={24} color="#c00" />
+                      </motion.button>
+                    )}
                   </ItensStatus>
                 </main>
-              </li>
+              </motion.li>
             );
           }
         )}

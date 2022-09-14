@@ -5,13 +5,13 @@ const dragActive = css`
 `;
 
 const dragReject = css`
-  border-color: #e57878;
+  border-color: #c00;
 `;
 
 export const DropContainer = styled.div.attrs({
   className: "dropzone"
 })`
-  border: 1px dashed #ddd;
+  border: 1px dashed rgb(70, 74, 77);
   border-radius: 4px;
   cursor: pointer;
 
@@ -23,7 +23,7 @@ export const DropContainer = styled.div.attrs({
 
 const messageColors = {
   default: "#999",
-  error: "#e57878",
+  error: "#c00",
   success: "#78e5d5"
 };
 

@@ -1,20 +1,24 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const Container = styled.ul`
+export const Container = styled(motion.ul)`
   box-shadow: inset 0 0 5px #000;
   border-radius: 10px;
   margin-top: 20px;
-  height: 300px;
-  overflow: auto;
+  max-height: 300px;
+  overflow-x: auto;
+  overflow-y: none;
   scroll-behavior: smooth;
+  z-index: -1;
 
   li {
     padding: 15px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #444;
-    outline: 0.5px solid rgba(68, 68, 68, 0.3);
+    color: rgb(213, 206, 198);
+    outline: 0.5px solid rgba(135, 125, 112, 0.3);
+    background-color: #323536;
 
     /* & + li {
       margin-top: 15px;
@@ -22,21 +26,30 @@ export const Container = styled.ul`
   }
 
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    background-color: #f5f5f5;
+    -webkit-box-shadow: rgb(6 6 6 / 30%) 0px 0px 1px inset;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: transparent;
   }
 
   &::-webkit-scrollbar {
     width: 12px;
-    border-radius: 12px;
-    background-color: #f5f5f5;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 12px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #555;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    -webkit-box-shadow: inset 0 0 0px 1px rgba(0, 0, 0, 0.3);
+    background-color: #52575a;
   }
 `;
 
@@ -49,18 +62,21 @@ export const FileInfoData = styled.div`
   display: flex;
   flex-direction: column;
 
+  a {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(213, 206, 198);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   span {
     font-size: 12px;
-    color: #999;
+    color: rgb(190, 181, 169);
     margin-top: 5px;
-
-    button {
-      border: 0;
-      background: transparent;
-      color: #e57878;
-      margin-left: 5px;
-      cursor: pointer;
-    }
   }
 `;
 
@@ -80,4 +96,12 @@ export const ItensStatus = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  button {
+    border: 0;
+    background: transparent;
+    color: #c00;
+    margin-left: 5px;
+    cursor: pointer;
+  }
 `;

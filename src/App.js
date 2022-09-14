@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
-import axios from "axios";
-// import { motion } from "framer-motion";
+import api from "./services/api";
 import { BsArrowDown as ArrowDown } from "react-icons/bs";
+import { ToastContainer, toast } from 'react-toastify';
 
 import GlobalStyle from "./styles/global";
 import { Container, Content, Header } from "./styles";
+import 'react-toastify/dist/ReactToastify.css';
 
 import Upload from "./components/Upload";
 import FileList from "./components/FileList";
-
-const api = axios.create({
-  baseURL: process.env.LOCALHOST_URL || "https://database-files-backend.herokuapp.com/",
-});
 
 class App extends Component {
   state = {
@@ -24,7 +21,7 @@ class App extends Component {
     const response = await api.get("posts");
 
     this.setState({
-      uploadedFiles: response?.data?.map((file) => ({
+      uploadedFiles: response.data.map((file) => ({
         id: file._id,
         name: file.name,
         readableSize: filesize(file.size),
@@ -52,13 +49,13 @@ class App extends Component {
       const response = await api.get("posts");
       
       this.setState({
-        uploadedFiles:  response?.data?.map((file) => ({
+        uploadedFiles: await response.data.map((file) => ({
           id: file._id,
           name: file.name,
           readableSize: filesize(file.size),
-          preview: file?.url,
+          preview: file.url,
           uploaded: true,
-          url: file?.url,
+          url: file.url,
         }))
       });
     })();
@@ -97,10 +94,23 @@ class App extends Component {
           id: response.data._id,
           url: response.data.url,
         });
+        toast('Upload realizado com sucesso!', {
+          type: 'success',
+          autoClose: 3000,
+          theme: 'dark',
+      });
       })
       .catch(() => {
         this.updateFile(uploadedFile.id, {
           error: true,
+        });
+        console.log(uploadedFile)
+        toast(`Erro ao realizar upload!
+        O tipo "${uploadedFile.file.type}" não é suportado!`, {
+          type: 'error',
+          autoClose: 3000,
+          theme: 'dark',
+          pauseOnHover: false,
         });
       });
   };
@@ -164,6 +174,7 @@ class App extends Component {
           )}
         </Content>
         <GlobalStyle />
+        <ToastContainer />
       </Container>
     );
   }
