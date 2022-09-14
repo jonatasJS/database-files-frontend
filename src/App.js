@@ -105,7 +105,7 @@ class App extends Component {
           error: true,
         });
         console.log(uploadedFile)
-        toast(`Erro ao realizar upload!
+        toast(`Erro ao realizar upload!\n\n
         O tipo "${uploadedFile.file.type}" não é suportado!`, {
           type: 'error',
           autoClose: 3000,
@@ -145,6 +145,8 @@ class App extends Component {
               }}
               width={100}
               height={100}
+              color="#7159c1"
+              strokeWidth={1.5}
             />
             <ArrowDown
               style={{
@@ -152,9 +154,10 @@ class App extends Component {
                 height: "1.5rem",
                 marginBottom: "-8px",
               }}
-              teste="1"
               width={100}
               height={100}
+              color="#7159c1"
+              strokeWidth={1.5}
             />
             <ArrowDown
               style={{
@@ -162,6 +165,8 @@ class App extends Component {
                 height: "1rem",
                 marginBottom: "-8px",
               }}
+              strokeWidth={1.5}
+              color="#7159c1"
               width={100}
               height={100}
             />
