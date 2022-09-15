@@ -203,7 +203,7 @@ class App extends Component {
         </Content>
         <GlobalStyle />
         <ToastContainer />
-        <h1
+        <div
           style={{
             position: "absolute",
             bottom: "0",
@@ -215,8 +215,20 @@ class App extends Component {
             marginBottom: "1rem",
           }}
         >
-          {process.env.REACT_APP_LOCALHOST_URL}
-        </h1>
+          Ma{" "}
+          <a
+            href="https://jonatas.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#fff", textDecoration: "none" }}
+          >
+            Jonatas
+          </a>
+          {" "}
+          <p style={{ fontSize: "1rem" }}>
+            Copyright &copy; 2022-{new Date().getFullYear()}
+          </p>
+        </div>
       </Container>
     );
   }
