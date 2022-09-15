@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
 import api from "./services/api";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 import { BsArrowDown } from "react-icons/bs";
 
 import GlobalStyle from "./styles/global";
 import { ArrowDown, Container, Content, Header } from "./styles";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import Upload from "./components/Upload";
 import FileList from "./components/FileList";
@@ -46,21 +46,6 @@ class App extends Component {
       url: null,
     }));
 
-    (async () => {
-      const response = await api.get("posts");
-      
-      this.setState({
-        uploadedFiles: await response.data.map((file) => ({
-          id: file._id,
-          name: file.name,
-          readableSize: filesize(file.size),
-          preview: file.url,
-          uploaded: true,
-          url: file.url,
-        }))
-      });
-    })();
-
     uploadedFiles.forEach(this.processUpload);
   };
 
@@ -72,14 +57,15 @@ class App extends Component {
           : uploadedFile;
       }),
     });
+    this.componentDidMount()
   };
 
-  processUpload = (uploadedFile) => {
+  processUpload = async (uploadedFile) => {
     const data = new FormData();
 
-    data.append("file", uploadedFile.file, uploadedFile.name);
+    await data.append("file", uploadedFile.file, uploadedFile.name);
 
-    api
+    await api
       .post("posts", data, {
         onUploadProgress: (e) => {
           const progress = parseInt(Math.round((e.loaded * 100) / e.total));
@@ -89,39 +75,69 @@ class App extends Component {
           });
         },
       })
-      .then((response) => {
-        this.updateFile(uploadedFile.id, {
+      .then(async (response) => {
+        await this.updateFile(uploadedFile.id, {
           uploaded: true,
           id: response.data._id,
           url: response.data.url,
         });
-        toast('Upload realizado com sucesso!', {
-          type: 'success',
+        const { data } = await api.get("posts");
+
+        this.setState({
+          uploadedFiles: data.map((file) => ({
+            id: file._id,
+            name: file.name,
+            readableSize: filesize(file.size),
+            preview: file.url,
+            uploaded: true,
+            url: file.url,
+          })),
+        });
+
+        toast("Upload realizado com sucesso!", {
+          type: "success",
           autoClose: 3000,
-          theme: 'dark',
-      });
+          theme: "dark",
+        });
       })
-      .catch(() => {
+      .catch((err) => {
         this.updateFile(uploadedFile.id, {
           error: true,
         });
-        console.log(uploadedFile)
-        toast(`Erro ao realizar upload!\n\n
-        O tipo "${uploadedFile.file.type}" não é suportado!`, {
-          type: 'error',
+        console.log(err);
+        toast(`Erro ao realizar upload!\n\nErro: ${err}`, {
+          allowHtml: true,
+          type: "error",
           autoClose: 3000,
-          theme: 'dark',
+          theme: "dark",
           pauseOnHover: false,
         });
       });
   };
 
   handleDelete = async (id) => {
-    await api.delete(`posts/${id}`);
+    try {
+      const fileDeleted = await api.get(`posts/${id}`);
+      await api.delete(`posts/${id}`);
 
-    this.setState({
-      uploadedFiles: this.state.uploadedFiles.filter((file) => file.id !== id),
-    });
+      this.setState({
+        uploadedFiles: this.state.uploadedFiles.filter(
+          (file) => file.id !== id
+        ),
+      });
+      toast(`Arquivo "${fileDeleted.data.name}" deletado com sucesso!`, {
+        type: "success",
+        autoClose: 3000,
+        theme: "dark",
+      });
+    } catch (error) {
+      toast(`Erro ao deletar arquivo!\n\nErro: ${error}`, {
+        allowHtml: true,
+        type: "error",
+        autoClose: 3000,
+        theme: "dark",
+      });
+    }
   };
 
   componentWillUnmount() {
@@ -138,9 +154,7 @@ class App extends Component {
         <Header>
           <h1>Guarde seus arquivos na nuvem.</h1>
           <div>
-            <ArrowDown
-              teste="4"
-            >
+            <ArrowDown teste="4">
               <BsArrowDown
                 style={{
                   width: "1rem",
@@ -153,9 +167,7 @@ class App extends Component {
                 strokeWidth={1.5}
               />
             </ArrowDown>
-            <ArrowDown
-              teste="2"
-            >
+            <ArrowDown teste="2">
               <BsArrowDown
                 style={{
                   width: "1.5rem",
@@ -168,9 +180,7 @@ class App extends Component {
                 strokeWidth={1.5}
               />
             </ArrowDown>
-            <ArrowDown
-              teste="4"
-            >
+            <ArrowDown teste="4">
               <BsArrowDown
                 style={{
                   width: "1rem",
