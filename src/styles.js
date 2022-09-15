@@ -92,7 +92,7 @@ export const CopyrighText = styled.div`
   p {
     margin: 0;
     font-size: 14px;
-    color: #878787;
+    color: rgb(255, 255, 254);
 
     a {
       color: #b29bff;
