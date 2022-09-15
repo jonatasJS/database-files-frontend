@@ -97,6 +97,7 @@ export const CopyrighText = styled.div`
     a {
       color: #b29bff;
       text-decoration: none;
+      font-weight: bold;
 
       &:hover {
         text-decoration: underline;
