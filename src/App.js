@@ -203,6 +203,20 @@ class App extends Component {
         </Content>
         <GlobalStyle />
         <ToastContainer />
+        <h1
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            width: "100%",
+            textAlign: "center",
+            color: "#fff",
+            fontSize: "1.5rem",
+            marginBottom: "1rem",
+          }}
+        >
+          {process.env.REACT_APP_LOCALHOST_URL}
+        </h1>
       </Container>
     );
   }
