@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import * as CircularProgressbar from "react-circular-progressbar";
 import { motion } from "framer-motion";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { toast } from 'react-toastify';
-import { ImageGroup, Image } from 'react-fullscreen-image'
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
@@ -13,7 +12,7 @@ import {
   FileInfo,
   FileInfoData,
   ItensStatus,
-  // Preview,
+  Preview,
 } from "./styles";
 
 export default class FileList extends Component {
@@ -54,23 +53,23 @@ export default class FileList extends Component {
                 transition={{ duration: 0.5 }}
               >
                 <FileInfo>
-                  <ImageGroup>
-                    <Image
-                      src={preview}
-                      alt={name}
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "5px",
-                        // backgroundImage: "url(${(props) => props.src})",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "50% 50%",
-                        marginRight: "10px",
-                      }}
-                    />
-                    {/* <Preview src={preview} /> */}
-                  </ImageGroup>
+                  <Preview
+                    src={preview}
+                    alt={name}
+                    title={name}
+                    whileTap={{
+                      scale: 15,
+                      zIndex: 999,
+                      top: "50%",
+                      left: "50%",
+                      position: "absolute",
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      bounce: 0.5,
+                      ease: "easeOut",
+                    }}
+                  />
                   <FileInfoData>
                     <a
                       href={url}
@@ -101,21 +100,21 @@ export default class FileList extends Component {
 
                   <ItensStatus>
                     {url && (
-                      <CopyToClipboard
-                        text={url}
-                      >
+                      <CopyToClipboard text={url}>
                         <motion.a
                           whileHover={{ scale: 1.2 }}
                           whileTap={{ scale: 0.8 }}
-                          onClick={() => toast('Link copiado com sucesso!', {
-                            position: "top-right",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            theme: 'dark'
-                          })}
+                          onClick={() =>
+                            toast("Link copiado com sucesso!", {
+                              position: "top-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: false,
+                              draggable: true,
+                              theme: "dark",
+                            })
+                          }
                         >
                           <MdLink
                             style={{ marginRight: 8 }}

@@ -80,7 +80,7 @@ export const FileInfoData = styled.div`
   }
 `;
 
-export const Preview = styled.div`
+export const Preview = styled(motion.div)`
   width: 36px;
   height: 36px;
   border-radius: 5px;
