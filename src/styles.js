@@ -71,7 +71,7 @@ export const Content = styled.div`
 
 export const Footer = styled.footer`
   background-color: rgb(33, 35, 36);
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
