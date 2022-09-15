@@ -215,9 +215,9 @@ class App extends Component {
           <CopyrighArea>
             <CopyrighText>
               <p>
-                All Right Reserved <a href="https://jonatas.app/">Jônatas</a>
-                <br />
                 Copyright &copy; 2022 - {new Date().getFullYear()}
+                <br />
+                All Right Reserved <a href="https://jonatas.app/">Jônatas</a>
               </p>
             </CopyrighText>
           </CopyrighArea>
