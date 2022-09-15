@@ -7,7 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { BsArrowDown } from "react-icons/bs";
 
 import GlobalStyle from "./styles/global";
-import { ArrowDown, Container, Content, Header } from "./styles";
+import {
+  ArrowDown,
+  Container,
+  Content,
+  CopyrighArea,
+  CopyrighText,
+  Footer,
+  Header,
+} from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 
 import Upload from "./components/Upload";
@@ -57,7 +65,7 @@ class App extends Component {
           : uploadedFile;
       }),
     });
-    this.componentDidMount()
+    this.componentDidMount();
   };
 
   processUpload = async (uploadedFile) => {
@@ -163,7 +171,7 @@ class App extends Component {
                 }}
                 width={100}
                 height={100}
-                color="#7159c1"
+                color="#b29bff"
                 strokeWidth={1.5}
               />
             </ArrowDown>
@@ -176,7 +184,7 @@ class App extends Component {
                 }}
                 width={100}
                 height={100}
-                color="#7159c1"
+                color="#b29bff"
                 strokeWidth={1.5}
               />
             </ArrowDown>
@@ -188,7 +196,7 @@ class App extends Component {
                   marginBottom: "-8px",
                 }}
                 strokeWidth={1.5}
-                color="#7159c1"
+                color="#b29bff"
                 width={100}
                 height={100}
               />
@@ -203,32 +211,17 @@ class App extends Component {
         </Content>
         <GlobalStyle />
         <ToastContainer />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-            width: "100%",
-            textAlign: "center",
-            color: "#fff",
-            fontSize: "1.5rem",
-            marginBottom: "1rem",
-          }}
-        >
-          Ma{" "}
-          <a
-            href="https://jonatas.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "#fff", textDecoration: "none" }}
-          >
-            Jonatas
-          </a>
-          {" "}
-          <p style={{ fontSize: "1rem" }}>
-            Copyright &copy; 2022-{new Date().getFullYear()}
-          </p>
-        </div>
+        <Footer>
+          <CopyrighArea>
+            <CopyrighText>
+              <p>
+                Copyright &copy; 2022 - {new Date().getFullYear()}
+                <br />
+                All Right Reserved <a href="https://jonatas.app/">Jônatas</a>
+              </p>
+            </CopyrighText>
+          </CopyrighArea>
+        </Footer>
       </Container>
     );
   }

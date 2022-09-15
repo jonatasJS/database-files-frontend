@@ -55,7 +55,8 @@ export const ArrowDown = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: ${arrowDownAnim} ${props => props.teste}s infinite alternate linear;
+  animation: ${arrowDownAnim} ${(props) => props.teste}s infinite alternate
+    linear;
 `;
 
 export const Content = styled.div`
@@ -66,4 +67,40 @@ export const Content = styled.div`
   border-radius: 0 0 4px 4px;
   background: rgb(33, 35, 36);
   padding: 20px;
+`;
+
+export const Footer = styled.footer`
+  background-color: rgb(33, 35, 36);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+`;
+
+export const CopyrighArea = styled.div`
+  padding: 25px 0;
+  text-align: center;
+`;
+
+export const CopyrighText = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #878787;
+
+    a {
+      color: #b29bff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
