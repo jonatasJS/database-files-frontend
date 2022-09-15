@@ -69,7 +69,7 @@ export default class FileList extends Component {
                 </FileInfo>
 
                 <main>
-                  {!uploaded && !error ? (
+                  {!!uploaded && !!error ? (
                     <CircularProgressbar
                       styles={{
                         root: { width: 24 },
@@ -109,8 +109,6 @@ export default class FileList extends Component {
                       </CopyToClipboard>
                     )}
 
-                    {uploaded && <MdCheckCircle size={24} color="#00ff00bb" />}
-                    {error && <MdError size={24} color="#c00" />}
                     {!!url && (
                       <motion.button
                         onClick={() => this.props.onDelete(id)}
@@ -120,6 +118,8 @@ export default class FileList extends Component {
                         <IoMdTrash size={24} color="#c00" />
                       </motion.button>
                     )}
+                    {uploaded && <MdCheckCircle size={24} color="#00ff00bb" />}
+                    {error && <MdError size={24} color="#c00" />}
                   </ItensStatus>
                 </main>
               </motion.li>
