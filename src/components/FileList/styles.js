@@ -90,10 +90,14 @@ export const Preview = styled(motion.div)`
   background-position: 50% 50%;
   margin-right: 10px;
 
-  div[data-rmiz-modal-overlay="visible"] {
-    background-color: rgba(0, 0, 0, 0.5);
-    filter: blur(1px);
-    backdrop-filter: blur(1px);
+  dialog {
+    background-color: transparent;
+
+    div[data-rmiz-modal-overlay="visible"] {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      filter: blur(1px) !important;
+      backdrop-filter: blur(1px) !important;
+    }
   }
 `;
 

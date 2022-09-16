@@ -57,9 +57,9 @@ export default class FileList extends Component {
                   <Zoom
                     defaultStyles={{
                       overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        backdropFilter: "blur(1px)",
-                        filter: "blur(1px)"
+                        backgroundColor: "rgba(0, 0, 0, 0.5) !important",
+                        backdropFilter: "blur(1px) !important",
+                        filter: "blur(1px) !important"
                       },
                       zoomImage: {
                         width: "auto",
