@@ -17,7 +17,16 @@ import {
 } from "./styles";
 
 export default class FileList extends Component {
+  state = {
+    pathname: window.location.pathname
+  }
+
   render() {
+    setInterval(() => {
+      this.setState({ pathname: window.location.pathname })
+      console.log(this.state.pathname)
+    }, 1000);
+
     return (
       <Container
         initial={{
@@ -34,6 +43,10 @@ export default class FileList extends Component {
         }}
         transition={{
           duration: 0.5,
+        }}
+        style={{
+          height: this.state.pathname === "/files" ? "100%" : "auto",
+          maxHeight: this.state.pathname === "/files" ? "85%" : "auto",
         }}
       >
         {this.props.files.map(
