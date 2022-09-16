@@ -59,6 +59,7 @@ export default class FileList extends Component {
                       overlay: {
                         backgroundColor: "rgba(0, 0, 0, 0.5)",
                         backdropFilter: "blur(1px)",
+                        filter: "blur(1px)"
                       },
                       zoomImage: {
                         width: "auto",
