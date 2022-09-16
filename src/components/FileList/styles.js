@@ -56,6 +56,20 @@ export const Container = styled(motion.ul)`
 export const FileInfo = styled.div`
   display: flex;
   align-items: center;
+
+  dialog {
+    background-color: transparent;
+
+    div[data-rmiz-modal-overlay="visible"] {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      filter: blur(2px) !important;
+      backdrop-filter: blur(2px) !important;
+      transition:
+        backdrop-filter 0.5s ease-in-out,
+        filter 0.5s ease-in-out,
+        transform 0.6s ease-in-out;
+    }
+  }
 `;
 
 export const FileInfoData = styled.div`
@@ -89,16 +103,6 @@ export const Preview = styled(motion.div)`
   background-size: cover;
   background-position: 50% 50%;
   margin-right: 10px;
-
-  dialog {
-    background-color: transparent;
-
-    div[data-rmiz-modal-overlay="visible"] {
-      background-color: rgba(0, 0, 0, 0.5) !important;
-      filter: blur(1px) !important;
-      backdrop-filter: blur(1px) !important;
-    }
-  }
 `;
 
 export const ItensStatus = styled.div`
