@@ -27,25 +27,25 @@ export const Container = styled(motion.ul)`
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: rgb(6 6 6 / 30%) 0px 0px 1px inset;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   &::-webkit-scrollbar {
     width: 12px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   &::-webkit-scrollbar-thumb {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     -webkit-box-shadow: inset 0 0 0px 1px rgba(0, 0, 0, 0.3);
@@ -89,19 +89,24 @@ export const Preview = styled(motion.div)`
   background-size: cover;
   background-position: 50% 50%;
   margin-right: 10px;
+
+  div[data-rmiz-modal-overlay="visible"] {
+    background-color: rgba(0, 0, 0, 0.5);
+    filter: blur(1px);
+    backdrop-filter: blur(1px);
+  }
 `;
 
 export const ItensStatus = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
   button {
     border: 0;
     background: transparent;
     color: #c00;
-    margin-left: 5px;
     cursor: pointer;
   }
 `;

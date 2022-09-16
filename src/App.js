@@ -17,6 +17,7 @@ import {
   Header,
 } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
+import 'react-medium-image-zoom/dist/styles.css'
 
 import Upload from "./components/Upload";
 import FileList from "./components/FileList";
@@ -35,7 +36,6 @@ class App extends Component {
         name: file.name,
         readableSize: filesize(file.size),
         preview: file?.url,
-        uploaded: true,
         url: file?.url,
       })),
     });
@@ -91,14 +91,23 @@ class App extends Component {
         });
         const { data } = await api.get("posts");
 
+        console.clear()
+        console.log("data", filesize(data[data.length-1].size));
+        console.log("uploadedFile", uploadedFile.readableSize);
+
         this.setState({
-          uploadedFiles: data.map((file) => ({
-            id: file._id,
-            name: file.name,
-            readableSize: filesize(file.size),
-            preview: file.url,
-            uploaded: true,
-            url: file.url,
+          uploadedFiles: data.map(({
+            _id,
+            name,
+            size,
+            url
+          }) => ({
+            id: _id,
+            name: name,
+            readableSize: filesize(size),
+            preview: url,
+            uploaded: filesize(size) === uploadedFile.readableSize ? true : false,
+            url: url,
           })),
         });
 

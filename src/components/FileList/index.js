@@ -3,6 +3,7 @@ import * as CircularProgressbar from "react-circular-progressbar";
 import { motion } from "framer-motion";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import Zoom from "react-medium-image-zoom";
 
 import { MdCheckCircle, MdError, MdLink } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
@@ -53,23 +54,35 @@ export default class FileList extends Component {
                 transition={{ duration: 0.5 }}
               >
                 <FileInfo>
-                  <Preview
-                    src={preview}
-                    alt={name}
-                    title={name}
-                    whileTap={{
-                      scale: 15,
-                      zIndex: 999,
-                      top: "50%",
-                      left: "50%",
-                      position: "absolute",
+                  <Zoom
+                    defaultStyles={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        backdropFilter: "blur(1px)",
+                      },
+                      zoomImage: {
+                        width: "auto",
+                        height: "auto",
+                      },
+                      zoomContainer: {
+                        width: "auto",
+                        height: "auto",
+                      },
                     }}
-                    transition={{
-                      duration: 0.5,
-                      bounce: 0.5,
-                      ease: "easeOut",
-                    }}
-                  />
+                  >
+                    <Preview
+                      src={preview}
+                      alt={name}
+                      title={name}
+                      role="img"
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        bounce: 0.5,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </Zoom>
                   <FileInfoData>
                     <a
                       href={url}
