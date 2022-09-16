@@ -17,7 +17,7 @@ class App extends Component {
     setInterval(() => {
       this.setState({ pathname: window.location.pathname })
       console.log(this.state.pathname)
-    }, 1000);
+    }, 1);
 
     return (
       <Container
@@ -28,7 +28,7 @@ class App extends Component {
         style={{ 
           maxWidth: this.state.pathname === "/files" ? "95%" : "400px",
           height: this.state.pathname === "/files" ? "65%" : "auto",
-          top: this.state.pathname === "/files" ? "100px" : "50%",
+          marginTop: this.state.pathname === "/files" ? "-100px" : "-100px",
         }}
       >
       <Router>

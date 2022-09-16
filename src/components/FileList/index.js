@@ -25,7 +25,7 @@ export default class FileList extends Component {
     setInterval(() => {
       this.setState({ pathname: window.location.pathname })
       console.log(this.state.pathname)
-    }, 1000);
+    }, 1);
 
     return (
       <Container
