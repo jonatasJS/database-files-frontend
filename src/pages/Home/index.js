@@ -161,7 +161,7 @@ class App extends Component {
         <Header>
           <h1>Guarde seus arquivos na nuvem.</h1>
           <div>
-            <ArrowDown teste="4">
+            <ArrowDown teste="0.3">
               <BsArrowDown
                 style={{
                   width: "1rem",
@@ -174,7 +174,7 @@ class App extends Component {
                 strokeWidth={1.5}
               />
             </ArrowDown>
-            <ArrowDown teste="2">
+            <ArrowDown teste="0">
               <BsArrowDown
                 style={{
                   width: "1.5rem",
@@ -187,7 +187,7 @@ class App extends Component {
                 strokeWidth={1.5}
               />
             </ArrowDown>
-            <ArrowDown teste="4">
+            <ArrowDown teste="0.3">
               <BsArrowDown
                 style={{
                   width: "1rem",

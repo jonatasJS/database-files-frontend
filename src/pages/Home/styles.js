@@ -55,8 +55,9 @@ export const ArrowDown = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: ${arrowDownAnim} ${(props) => props.teste}s infinite alternate
-    linear;
+  animation: ${arrowDownAnim} 2s infinite alternate
+    ease-in-out;
+  animation-delay: ${(props) => props.teste}s;
 `;
 
 export const Content = styled.div`
