@@ -126,7 +126,7 @@ class App extends Component {
               exact
               element={this.state.isLogged ? <ListFiles /> : <Login />}
             />
-            // <Route path="/login" exact element={<Login />} />
+            <Route path="/login" exact element={<Login />} />
             <Route
               path="*"
               element={
