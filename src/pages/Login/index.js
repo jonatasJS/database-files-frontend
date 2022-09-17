@@ -38,6 +38,11 @@ export default class Login extends Component {
   };
 
   handleRegister = async () => {
+    // verifica se o campo username tem espaço
+    if (this.state.registerData.username.includes(" ")) {
+      return toast.error("O campo username não pode conter espaços!");
+    }
+
     await api
       .post("/registeruser", {
         username: this.state.registerData.username,
