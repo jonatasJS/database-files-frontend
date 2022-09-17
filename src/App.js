@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-medium-image-zoom/dist/styles.css";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
+import api from "./services/api";
 
 class App extends Component {
   state = {
@@ -22,16 +23,31 @@ class App extends Component {
     },
   };
 
-  componentDidMount() {
-    setInterval(() => {
+  componentDidUpdate() {
+    if (this.state.pathname !== window.location.pathname) {
       this.setState({ pathname: window.location.pathname });
-    }, 1);
-    if (localStorage.getItem("token")) {
-      this.setState({ isLogged: true });
     }
+  }
+
+  componentDidMount() {
+    // verifica se o token no localStorage é valido
     if (localStorage.getItem("token")) {
-      this.setState({ userdata: JSON.parse(localStorage.getItem("userdata")) });
+      api.post("/validatetoken", {
+        token: localStorage.getItem("token"),
+      }).then((res) => {
+        console.log(res);
+        if (res.data.error) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userdata");
+          this.setState({ isLogged: false });
+          return window.location.href = "/login";
+        } else {
+          this.setState({ isLogged: true });
+          this.setState({ userdata: res.data.user });
+        }
+      });
     }
+    
 
     // if(localStorage.getItem('token') === null) {
     //   window.location.href = '/login';
