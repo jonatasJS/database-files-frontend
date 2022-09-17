@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { uniqueId } from "lodash";
 import filesize from "filesize";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -12,9 +12,6 @@ import { BsArrowDown, BsArrowRight } from "react-icons/bs";
 import {
   ArrowDown,
   Content,
-  CopyrighArea,
-  CopyrighText,
-  Footer,
   Header,
 } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
@@ -247,18 +244,6 @@ class App extends Component {
             </Link>
           </motion.div>
         </Content>
-        <ToastContainer />
-        <Footer>
-          <CopyrighArea>
-            <CopyrighText>
-              <p>
-                Copyright &copy; 2022 - {new Date().getFullYear()}
-                <br />
-                All Right Reserved <a href="https://jonatas.app/">Jônatas</a>
-              </p>
-            </CopyrighText>
-          </CopyrighArea>
-        </Footer>
       </>
     );
   }

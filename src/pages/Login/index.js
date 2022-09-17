@@ -33,7 +33,7 @@ export default class Login extends Component {
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error(response.data.error);
+        toast.error("Username ou senha incorretos");
       });
   };
 
@@ -53,7 +53,7 @@ export default class Login extends Component {
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error(response.data.error);
+        toast.error('Username ou email já cadastrado');
       });
   };
 

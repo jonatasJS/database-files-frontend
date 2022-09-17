@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import Home from "./pages/Home";
 import ListFiles from "./pages/ListFiles";
 
-import { Container } from "./styles";
+import { Container, CopyrighArea, CopyrighText, Footer } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 import "react-medium-image-zoom/dist/styles.css";
 import Login from "./pages/Login";
+import { ToastContainer } from "react-toastify";
 
 class App extends Component {
   state = {
@@ -17,7 +18,7 @@ class App extends Component {
     userdata: {
       name: null,
       email: null,
-      _id: null
+      _id: null,
     },
   };
 
@@ -31,7 +32,7 @@ class App extends Component {
     if (localStorage.getItem("token")) {
       this.setState({ userdata: JSON.parse(localStorage.getItem("userdata")) });
     }
-    
+
     // if(localStorage.getItem('token') === null) {
     //   window.location.href = '/login';
     // }
@@ -50,70 +51,57 @@ class App extends Component {
           marginTop: this.state.pathname === "/files" ? "-100px" : "-100px",
         }}
       >
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/files">Files</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-        {this.state.userdata._id && <motion.div
-          className="photo-profile"
-          initial={{
-            opacity: 0,
-            right: 0,
-            top: 0,
-            zIndex: 0,
-            height: 0
-          }}
-          animate={{
-            opacity: 1,
-            right: 10,
-            top: 10,
-            zIndex: 1,
-            height: "auto"
-          }}
-          exit={{
-            opacity: 0,
-            right: 0,
-            top: 0,
-            zIndex: 0,
-            height: 0
-          }}
-          transition={{ duration: 0.5 }}
-
-          style={{
-            position: 'absolute',
-            display: window.localStorage.getItem("token") ? "block" : "none",
-            height: "50px",
-          }}
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("userdata");
-            window.location.href = "/login";
-          }}
-        >
-          <motion.img
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            style={{
-              width: "5rem",
-              height: "5rem",
-              borderRadius: "50%",
-              border: "1px solid #fff",
-              cursor: "pointer",
+        {this.state.userdata._id && (
+          <motion.div
+            className="photo-profile"
+            initial={{
+              opacity: 0,
+              right: 0,
+              top: 0,
+              zIndex: 0,
+              height: 0,
             }}
-            src={`https://github.com/${this.state.userdata.username}.png`}
-            alt="Profile"
-          />
-        </motion.div>}
+            animate={{
+              opacity: 1,
+              right: 10,
+              top: 10,
+              zIndex: 1,
+              height: "auto",
+            }}
+            exit={{
+              opacity: 0,
+              right: 0,
+              top: 0,
+              zIndex: 0,
+              height: 0,
+            }}
+            transition={{ duration: 0.5 }}
+            style={{
+              position: "absolute",
+              display: window.localStorage.getItem("token") ? "block" : "none",
+              height: "50px",
+            }}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("userdata");
+              window.location.href = "/login";
+            }}
+          >
+            <motion.img
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              style={{
+                width: "5rem",
+                height: "5rem",
+                borderRadius: "50%",
+                border: "1px solid #fff",
+                cursor: "pointer",
+              }}
+              src={`https://github.com/${this.state.userdata.username}.png`}
+              alt="Profile"
+            />
+          </motion.div>
+        )}
         <Router>
           <Routes>
             <Route
@@ -145,6 +133,18 @@ class App extends Component {
             />
           </Routes>
         </Router>
+        <ToastContainer />
+        <Footer>
+          <CopyrighArea>
+            <CopyrighText>
+              <p>
+                Copyright &copy; 2022 - {new Date().getFullYear()}
+                <br />
+                All Right Reserved <a href="https://jonatas.app/">Jônatas</a>
+              </p>
+            </CopyrighText>
+          </CopyrighArea>
+        </Footer>
       </Container>
     );
   }
