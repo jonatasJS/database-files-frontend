@@ -1,43 +1,151 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Home from "./pages/Home";
 import ListFiles from "./pages/ListFiles";
 
-import { Container } from './styles';
+import { Container } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 import "react-medium-image-zoom/dist/styles.css";
+import Login from "./pages/Login";
 
 class App extends Component {
   state = {
-    pathname: window.location.pathname
+    pathname: window.location.pathname,
+    isLogged: false,
+    userdata: {
+      name: null,
+      email: null,
+      _id: null
+    },
+  };
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ pathname: window.location.pathname });
+    }, 1);
+    if (localStorage.getItem("token")) {
+      this.setState({ isLogged: true });
+    }
+    if (localStorage.getItem("token")) {
+      this.setState({ userdata: JSON.parse(localStorage.getItem("userdata")) });
+    }
+    
+    // if(localStorage.getItem('token') === null) {
+    //   window.location.href = '/login';
+    // }
   }
 
   render() {
-    setInterval(() => {
-      this.setState({ pathname: window.location.pathname })
-      console.log(this.state.pathname)
-    }, 1);
-
     return (
       <Container
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        style={{ 
+        style={{
           maxWidth: this.state.pathname === "/files" ? "95%" : "400px",
           height: this.state.pathname === "/files" ? "65%" : "auto",
           marginTop: this.state.pathname === "/files" ? "-100px" : "-100px",
         }}
       >
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/files" element={<ListFiles />} />
-        </Routes>
-      </Router>
-    </Container>
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/files">Files</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav> */}
+
+        {this.state.userdata._id && <motion.div
+          className="photo-profile"
+          initial={{
+            opacity: 0,
+            right: 0,
+            top: 0,
+            zIndex: 0,
+            height: 0
+          }}
+          animate={{
+            opacity: 1,
+            right: 10,
+            top: 10,
+            zIndex: 1,
+            height: "auto"
+          }}
+          exit={{
+            opacity: 0,
+            right: 0,
+            top: 0,
+            zIndex: 0,
+            height: 0
+          }}
+          transition={{ duration: 0.5 }}
+
+          style={{
+            position: 'absolute',
+            display: window.localStorage.getItem("token") ? "block" : "none",
+            height: "50px",
+          }}
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userdata");
+            window.location.href = "/login";
+          }}
+        >
+          <motion.img
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              width: "5rem",
+              height: "5rem",
+              borderRadius: "50%",
+              border: "1px solid #fff",
+              cursor: "pointer",
+            }}
+            src={`https://github.com/${this.state.userdata.username}.png`}
+            alt="Profile"
+          />
+        </motion.div>}
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={this.state.isLogged ? <Home /> : <Login />}
+            />
+            <Route
+              path="/files"
+              exact
+              element={this.state.isLogged ? <ListFiles /> : <Login />}
+            />
+            // <Route path="/login" exact element={<Login />} />
+            <Route
+              path="*"
+              element={
+                <h1
+                  style={{
+                    textAlign: "center",
+                    fontSize: "2rem",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    width: "100%",
+                  }}
+                >
+                  404
+                </h1>
+              }
+            />
+          </Routes>
+        </Router>
+      </Container>
     );
   }
 }

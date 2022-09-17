@@ -47,6 +47,7 @@ export default class FileList extends Component {
         style={{
           height: this.state.pathname === "/files" ? "100%" : "auto",
           maxHeight: this.state.pathname === "/files" ? "85%" : "auto",
+          display: this.state.pathname === "/files" ? "grid" : "block",
         }}
       >
         {this.props.files.map(

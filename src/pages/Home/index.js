@@ -92,10 +92,6 @@ class App extends Component {
         });
         const { data } = await api.get("posts");
 
-        console.clear();
-        console.log("data", filesize(data[data.length - 1].size));
-        console.log("uploadedFile", uploadedFile.readableSize);
-
         this.setState({
           uploadedFiles: data.map(({ _id, name, size, url }) => ({
             id: _id,

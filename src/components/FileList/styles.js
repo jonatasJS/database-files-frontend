@@ -10,6 +10,23 @@ export const Container = styled(motion.ul)`
   overflow-y: none;
   scroll-behavior: smooth;
   z-index: -1;
+  grid-template-columns: repeat(5, 1fr);
+
+  @media (max-width: 1616px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 1265px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1040px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 703px) {
+    grid-template-columns: repeat(1, 1fr);
+  }        
 
   li {
     padding: 15px 10px;
