@@ -61,6 +61,7 @@ export default class Login extends Component {
     return (
       <LoginPage>
         <Form>
+          <h1>{this.state.formType === "login" ? "Login" : "Register"}</h1>
           {this.state.formType === "register" && (
             <form className="register-form">
               <input
