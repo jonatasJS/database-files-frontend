@@ -85,18 +85,6 @@ export default class Login extends Component {
                 }
               />
               <input
-                type="password"
-                placeholder="password"
-                onChange={(e) =>
-                  this.setState({
-                    registerData: {
-                      ...this.state.registerData,
-                      password: e.target.value,
-                    },
-                  })
-                }
-              />
-              <input
                 type="email"
                 placeholder="email address"
                 onChange={(e) =>
@@ -104,6 +92,18 @@ export default class Login extends Component {
                     registerData: {
                       ...this.state.registerData,
                       email: e.target.value,
+                    },
+                  })
+                }
+              />
+              <input
+                type="password"
+                placeholder="password"
+                onChange={(e) =>
+                  this.setState({
+                    registerData: {
+                      ...this.state.registerData,
+                      password: e.target.value,
                     },
                   })
                 }
