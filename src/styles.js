@@ -9,6 +9,7 @@ export const Container = styled.div`
   height: auto;
   align-items: center;
   flex-direction: column;
+  border-radius: 10px;
   box-shadow: 0 0 100px 1px rgba(0, 0, 0, 0.5);
 `;
 

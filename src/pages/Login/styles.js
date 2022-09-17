@@ -30,6 +30,7 @@ export const Form = styled.div`
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
+    border-radius: 5px;
 
     &::placeholder {
       color: rgba(255, 255, 255, 0.7);
@@ -43,6 +44,7 @@ export const Form = styled.div`
     width: 100%;
     border: 0;
     background: #7159c1;
+    border-radius: 5px;
     padding: 15px;
     color: #ffffff;
     font-size: 14px;
