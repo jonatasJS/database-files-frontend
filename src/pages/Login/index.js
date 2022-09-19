@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { BsArrowLeft } from "react-icons/bs";
 import { toast } from "react-toastify";
 import api from "../../services/api.js";
 
@@ -131,8 +132,8 @@ export default class Login extends Component {
             {this.state.formType === "login"
               ? "Login"
               : this.state.formType === "register"
-              ? "Register"
-              : "Reset"}
+              ? "Crie sua conta"
+              : "Recuperar senha"}
           </h1>
           {this.state.formType === "register" && (
             <form className="register-form">
@@ -182,7 +183,6 @@ export default class Login extends Component {
                 create
               </button>
               <FormMessage>
-                Already registered?{" "}
                 <span
                   onClick={() =>
                     this.setState({
@@ -190,7 +190,12 @@ export default class Login extends Component {
                     })
                   }
                 >
-                  Sign In
+                  <BsArrowLeft
+                    style={{
+                      marginRight: "5px",
+                    }}
+                  /> {" "}
+                  Voltar para login
                 </span>
               </FormMessage>
             </form>
@@ -240,7 +245,7 @@ export default class Login extends Component {
                 login
               </button>
               <FormMessage>
-                Not registered?{" "}
+                Não tem uma conta?{" "}
                 <span
                   onClick={() =>
                     this.setState({
@@ -248,7 +253,7 @@ export default class Login extends Component {
                     })
                   }
                 >
-                  Create an account
+                  Registre-se
                 </span>
               </FormMessage>
             </form>

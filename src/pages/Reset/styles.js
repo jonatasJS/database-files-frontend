@@ -61,10 +61,9 @@ export const Form = styled.div`
 `;
 
 export const ResetPassword = styled.a`
-  color: #7159c1;
-  font-size: 0.9rem;
-  margin-top: -10px;
-  margin-bottom: 20px;
+  color: #fff;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
   display: block;
   text-align: left;
   font-weight: bold;
@@ -79,17 +78,17 @@ export const ResetPassword = styled.a`
 `;
 
 export const FormMessage = styled.p`
-  margin: 20px 0 -15px 0;
+  margin: 15px 0 0;
   color: #b3b3b3;
-  font-size: 0.9rem;
+  font-size: 12px;
 
   span {
     cursor: pointer;
-    color: #7159c1;
+    color: #b29bff;
     text-decoration: none;
 
     &:hover {
-      color: #8b74d7;
+      text-decoration: underline;
     }
   }
 `;

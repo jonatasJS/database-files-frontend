@@ -4,11 +4,12 @@ import { motion } from "framer-motion";
 
 import Home from "./pages/Home";
 import ListFiles from "./pages/ListFiles";
+import Login from "./pages/Login";
+import Reset from "./pages/Reset";
 
 import { Container, CopyrighArea, CopyrighText, Footer } from "./styles";
 import "react-toastify/dist/ReactToastify.css";
 import "react-medium-image-zoom/dist/styles.css";
-import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
 import api from "./services/api";
 
@@ -136,6 +137,7 @@ class App extends Component {
             <Route path="/login" exact element={<Login />} />
             <Route
               path="*"
+              exact
               element={
                 <h1
                   style={{
@@ -148,6 +150,13 @@ class App extends Component {
                 >
                   404
                 </h1>
+              }
+            />
+            <Route
+              path="reset/:token"
+              exact
+              element={
+                <Reset />
               }
             />
           </Routes>
