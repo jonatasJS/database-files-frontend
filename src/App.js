@@ -25,37 +25,44 @@ class App extends Component {
   };
 
   // componentDidUpdate() {
-    
+
   // }
 
-  componentDidMount() {
+  async componentDidMount() {
     const time = setInterval(() => {
       if (this.state.pathname !== window.location.pathname) {
         this.setState({ pathname: window.location.pathname });
       } else {
         clearInterval(time);
       }
-    }, 10)
+    }, 10);
     // verifica se o token no localStorage é valido
-    if (localStorage.getItem("token")) {
-      api.post("/validatetoken", {
-        token: localStorage.getItem("token"),
-      }).then((res) => {
-        console.log(res);
-        if (res.data.error) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("userdata");
-          this.setState({ isLogged: false });
-          return window.location.href = "/login";
-        } else {
-          this.setState({ isLogged: true });
-          this.setState({ userdata: res.data.user });
-        }
-      });
-    }
+    if (
+      window.location.pathname !== "/login" &&
+      window.location.pathname.includes("/reset") === false
+    ) {
+      const token = localStorage.getItem("token");
 
-    if(!this.state.isLogged && window.location.pathname !== "/login" && window.location.pathname.includes("/reset") === false) {
-      window.location.href = "/login";
+      if (token) {
+        await api
+          .post("/validatetoken", {
+            token: localStorage.getItem("token"),
+          })
+          .then((res) => {
+            this.setState({ isLogged: true });
+            this.setState({ userdata: res.data.user });
+          })
+          .catch((err) => {
+            console.log(err);
+            localStorage.removeItem("token");
+            localStorage.removeItem("userdata");
+            this.setState({ isLogged: false });
+            return (window.location.href = "/login");
+          });
+      } else {
+        this.setState({ isLogged: false });
+        return (window.location.href = "/login");
+      }
     }
   }
 
@@ -125,21 +132,9 @@ class App extends Component {
         )}
         <Router>
           <Routes>
-            <Route
-              path="/"
-              exact
-              element={<Home />}
-            />
-            <Route
-              path="/files"
-              exact
-              element={<ListFiles />}
-            />
-            <Route
-              path="/login"
-              exact
-              element={<Login />}
-            />
+            <Route path="/" exact element={<Home />} />
+            <Route path="/files" exact element={<ListFiles />} />
+            <Route path="/login" exact element={<Login />} />
             <Route
               path="*"
               exact
@@ -157,13 +152,7 @@ class App extends Component {
                 </h1>
               }
             />
-            <Route
-              path="reset/:token"
-              exact
-              element={
-                <Reset />
-              }
-            />
+            <Route path="reset/:token" exact element={<Reset />} />
           </Routes>
         </Router>
         <ToastContainer />
