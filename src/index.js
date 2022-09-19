@@ -9,6 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    {console.log(process.env.NODE_ENV)}
     <GlobalStyle />
   </React.StrictMode>
 );

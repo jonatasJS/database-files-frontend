@@ -29,9 +29,11 @@ class App extends Component {
   // }
 
   componentDidMount() {
-    setInterval(() => {
+    const time = setInterval(() => {
       if (this.state.pathname !== window.location.pathname) {
         this.setState({ pathname: window.location.pathname });
+      } else {
+        clearInterval(time);
       }
     }, 10)
     // verifica se o token no localStorage é valido
@@ -51,11 +53,10 @@ class App extends Component {
         }
       });
     }
-    
 
-    // if(localStorage.getItem('token') === null) {
-    //   window.location.href = '/login';
-    // }
+    if(!this.state.isLogged && window.location.pathname !== "/login" && window.location.pathname.includes("/reset") === false) {
+      window.location.href = "/login";
+    }
   }
 
   render() {
@@ -127,14 +128,18 @@ class App extends Component {
             <Route
               path="/"
               exact
-              element={this.state.isLogged ? <Home /> : <Login />}
+              element={<Home />}
             />
             <Route
               path="/files"
               exact
-              element={this.state.isLogged ? <ListFiles /> : <Login />}
+              element={<ListFiles />}
             />
-            <Route path="/login" exact element={<Login />} />
+            <Route
+              path="/login"
+              exact
+              element={<Login />}
+            />
             <Route
               path="*"
               exact
