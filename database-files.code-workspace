@@ -7,5 +7,11 @@
 			"path": "../database-files-backend"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"git.allowForcePush": true,
+		"git.autofetch": true,
+		"git.confirmSync": false,
+		"git.enableSmartCommit": true,
+		"git.path": "C:\\Program Files\\Git\\cmd\\git.exe",
+	}
 }

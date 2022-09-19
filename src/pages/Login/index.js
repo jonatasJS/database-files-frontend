@@ -90,21 +90,21 @@ export default class Login extends Component {
       });
   };
 
-  handleReset = async () => {
+  handleSendEmailResetPassword = async () => {
     try {
       if (
         this.state.resetData.email === "" ||
         this.state.resetData.email === null
-      )
-        return toast.error("Preencha todos os campos!");
-
-      console.log(this.state.resetData.email);
+      ) return toast.error("Preencha todos os campos!");
 
       await api
-        .get(`/resetpassword/${this.state.resetData.email}`)
+        .get(`/sendemailresetpassword/${this.state.resetData.email}`)
         .then((response) => {
           if (response.data.error) return toast.error(response.data.error);
-          toast.success(response.data.success);
+          if (response.request.status === 200) {
+              toast.success("Email enviado com sucesso!");
+              this.setState({ formType: "login" });
+          }
         })
         .catch(({ response }) => {
           console.log(response.data);
@@ -271,8 +271,7 @@ export default class Login extends Component {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(this.state.resetData);
-                  this.handleReset();
+                  this.handleSendEmailResetPassword();
                 }}
               >
                 reset
