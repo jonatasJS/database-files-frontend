@@ -15,7 +15,9 @@ export default class Login extends Component {
 
     await api.get("/user/" + token).catch(async (_) => {
       if (_.request.status === 400 || _.request.status === 404) {
-        toast.error("Token inválido");
+        toast.error("Token inválido", {
+          theme: "dark",
+        });
         return (window.location.href = "/login");
       }
     });
@@ -27,9 +29,13 @@ export default class Login extends Component {
       this.state.confimPassword === "" ||
       this.state.password === null ||
       this.state.confimPassword === null
-    ) return toast.error("Preencha todos os campos!");
+    ) return toast.error("Preencha todos os campos!", {
+      theme: "dark",
+    });
 
-    if (this.state.password !== this.state.confimPassword) return toast.error("As senhas não coincidem!");
+    if (this.state.password !== this.state.confimPassword) return toast.error("As senhas não coincidem!", {
+      theme: "dark",
+    });
 
     // pegar o token da url
     const token = window.location.href.split("/")[4];
@@ -52,7 +58,9 @@ export default class Login extends Component {
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error("Algo deu Errado!");
+        toast.error("Algo deu Errado!", {
+          theme: "dark",
+        });
       });
   };
 

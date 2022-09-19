@@ -15,6 +15,7 @@ export default class Login extends Component {
     registerData: {
       username: null,
       password: null,
+      confirmPassword: null,
       email: null,
     },
     resetData: {
@@ -29,7 +30,9 @@ export default class Login extends Component {
       this.state.loginData.username === null ||
       this.state.loginData.password === null
     )
-      return toast.error("Preencha todos os campos!");
+      return toast.error("Preencha todos os campos!", {
+        theme: "dark",
+      });
 
     await api
       .post("/authenticate", {
@@ -48,7 +51,9 @@ export default class Login extends Component {
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error("Username ou senha incorretos");
+        toast.error("Username ou senha incorretos", {
+          theme: "dark",
+        });
       });
   };
 
@@ -57,17 +62,45 @@ export default class Login extends Component {
     if (
       this.state.registerData.username === "" ||
       this.state.registerData.password === "" ||
+      this.state.registerData.confirmPassword === "" ||
       this.state.registerData.email === "" ||
       this.state.registerData.username === null ||
       this.state.registerData.password === null ||
+      this.state.registerData.confirmPassword === null ||
       this.state.registerData.email === null
     )
-      return toast.error("Preencha todos os campos!");
+      return toast.error("Preencha todos os campos!", {
+        theme: "dark",
+      });
 
     // verifica se o campo username tem espaço
-    if (this.state.registerData.username.includes(" ")) {
-      return toast.error("O campo username não pode conter espaços!");
-    }
+    if (this.state.registerData.username.includes(" ")) return toast.error("O campo username não pode conter espaços!", {
+      theme: "dark",
+    });
+    
+    // verifica se a senha tem menos de 3 caracteres
+    if (this.state.registerData.password.length < 3) return toast.error("A senha deve ter no mínimo 3 caracteres!", {
+      theme: "dark",
+    });
+    
+    // verificar se a senha tem numeros ou senhas sequenciais
+    if (this.state.registerData.password.match(/(\d{3,})|(\w{3,})/g)) return toast.error("A senha não pode conter números ou senhas sequenciais!", {
+      theme: "dark",
+    });
+    
+    // verifica se o campo password é igual ao campo confirmPassword
+    if (
+      this.state.registerData.password !== this.state.registerData.confirmPassword
+    ) return toast.error("As senhas não coincidem!", {
+      theme: "dark",
+    });
+
+
+    // verifica se o email é válido
+    if (!this.state.registerData.email.includes("@")) return toast.error("Email inválido!", {
+      theme: "dark",
+    });
+
 
     await api
       .post("/registeruser", {
@@ -87,7 +120,9 @@ export default class Login extends Component {
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error("Username ou email já cadastrado");
+        toast.error("Username ou email já cadastrado", {
+          theme: "dark",
+        });
       });
   };
 
@@ -96,20 +131,28 @@ export default class Login extends Component {
       if (
         this.state.resetData.email === "" ||
         this.state.resetData.email === null
-      ) return toast.error("Preencha todos os campos!");
+      ) return toast.error("Preencha todos os campos!", {
+        theme: "dark",
+      });
 
       await api
         .get(`/sendemailresetpassword/${this.state.resetData.email}`)
         .then((response) => {
-          if (response.data.error) return toast.error(response.data.error);
+          if (response.data.error) return toast.error(response.data.error, {
+            theme: "dark",
+          });
           if (response.request.status === 200) {
-              toast.success("Email enviado com sucesso!");
+              toast.success("Email enviado com sucesso!", {
+                theme: "dark",
+              });
               this.setState({ formType: "login" });
           }
         })
         .catch(({ response }) => {
           console.log(response.data);
-          toast.error(response.data.error);
+          toast.error(response.data.error, {
+            theme: "dark",
+          });
         });
     } catch (error) {
       console.log(error);
@@ -123,8 +166,8 @@ export default class Login extends Component {
           <h1
             style={{
               color: "#fff",
-              fontSize: "2.5rem",
-              marginBottom: "20px",
+              fontSize: this.state.formType === "login" ? "2.5rem" : "2.3rem",
+              marginBottom: this.state.formType === "login" ? "20px" : "30px",
               textAlign: "center",
               marginTop: "-20px",
             }}
@@ -174,6 +217,18 @@ export default class Login extends Component {
                   })
                 }
               />
+              <input
+                type="password"
+                placeholder="password"
+                onChange={(e) =>
+                  this.setState({
+                    registerData: {
+                      ...this.state.registerData,
+                      confirmPassword: e.target.value,
+                    },
+                  })
+                }
+              />
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -193,6 +248,8 @@ export default class Login extends Component {
                   <BsArrowLeft
                     style={{
                       marginRight: "5px",
+                      strokeWidth: 1.5,
+                      fontSize: "1.2rem",
                     }}
                   /> {" "}
                   Voltar para login

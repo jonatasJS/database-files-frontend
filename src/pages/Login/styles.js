@@ -87,6 +87,11 @@ export const FormMessage = styled.p`
     cursor: pointer;
     color: #7159c1;
     text-decoration: none;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    transform: color 0.5s ease-in-out;
 
     &:hover {
       color: #8b74d7;
