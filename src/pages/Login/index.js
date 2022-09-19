@@ -2,23 +2,34 @@ import { Component } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api.js";
 
-import { LoginPage, Form, FormMessage } from "./styles.js";
+import { LoginPage, Form, FormMessage, ResetPassword } from "./styles.js";
 
 export default class Login extends Component {
   state = {
     formType: "login",
     loginData: {
-      username: "",
-      password: "",
+      username: null,
+      password: null,
     },
     registerData: {
-      username: "",
-      password: "",
-      email: "",
+      username: null,
+      password: null,
+      email: null,
+    },
+    resetData: {
+      email: null,
     },
   };
 
-  handlelogin = async () => {
+  handleLogin = async () => {
+    if (
+      this.state.loginData.username === "" ||
+      this.state.loginData.password === "" ||
+      this.state.loginData.username === null ||
+      this.state.loginData.password === null
+    )
+      return toast.error("Preencha todos os campos!");
+
     await api
       .post("/authenticate", {
         username: this.state.loginData.username,
@@ -26,7 +37,10 @@ export default class Login extends Component {
       })
       .then(async (response) => {
         if (response.data.token) {
-          await localStorage.setItem("userdata", JSON.stringify(response.data.user));
+          await localStorage.setItem(
+            "userdata",
+            JSON.stringify(response.data.user)
+          );
           await localStorage.setItem("token", response.data.token);
           return (window.location.href = "/");
         }
@@ -38,6 +52,17 @@ export default class Login extends Component {
   };
 
   handleRegister = async () => {
+    // verificar se os campos estão preenchidos
+    if (
+      this.state.registerData.username === "" ||
+      this.state.registerData.password === "" ||
+      this.state.registerData.email === "" ||
+      this.state.registerData.username === null ||
+      this.state.registerData.password === null ||
+      this.state.registerData.email === null
+    )
+      return toast.error("Preencha todos os campos!");
+
     // verifica se o campo username tem espaço
     if (this.state.registerData.username.includes(" ")) {
       return toast.error("O campo username não pode conter espaços!");
@@ -51,15 +76,43 @@ export default class Login extends Component {
       })
       .then(async (response) => {
         if (response.data.token) {
-          await localStorage.setItem("userdata", JSON.stringify(response.data.user));
+          await localStorage.setItem(
+            "userdata",
+            JSON.stringify(response.data.user)
+          );
           await localStorage.setItem("token", response.data.token);
           return (window.location.href = "/");
         }
       })
       .catch(({ response }) => {
         console.log(response.data);
-        toast.error('Username ou email já cadastrado');
+        toast.error("Username ou email já cadastrado");
       });
+  };
+
+  handleReset = async () => {
+    try {
+      if (
+        this.state.resetData.email === "" ||
+        this.state.resetData.email === null
+      )
+        return toast.error("Preencha todos os campos!");
+
+      console.log(this.state.resetData.email);
+
+      await api
+        .get(`/resetpassword/${this.state.resetData.email}`)
+        .then((response) => {
+          if (response.data.error) return toast.error(response.data.error);
+          toast.success(response.data.success);
+        })
+        .catch(({ response }) => {
+          console.log(response.data);
+          toast.error(response.data.error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -74,12 +127,19 @@ export default class Login extends Component {
               textAlign: "center",
               marginTop: "-20px",
             }}
-          >{this.state.formType === "login" ? "Login" : "Register"}</h1>
+          >
+            {this.state.formType === "login"
+              ? "Login"
+              : this.state.formType === "register"
+              ? "Register"
+              : "Reset"}
+          </h1>
           {this.state.formType === "register" && (
             <form className="register-form">
               <input
                 type="text"
                 placeholder="name"
+                autoFocus={this.state.formType === "register" ? true : false}
                 onChange={(e) =>
                   this.setState({
                     registerData: {
@@ -118,7 +178,9 @@ export default class Login extends Component {
                   e.preventDefault();
                   this.handleRegister();
                 }}
-              >create</button>
+              >
+                create
+              </button>
               <FormMessage>
                 Already registered?{" "}
                 <span
@@ -137,6 +199,7 @@ export default class Login extends Component {
             <form>
               <input
                 type="text"
+                autoFocus={this.state.formType === "login" ? true : false}
                 placeholder="username"
                 onChange={(e) =>
                   this.setState({
@@ -159,10 +222,19 @@ export default class Login extends Component {
                   })
                 }
               />
+              <ResetPassword
+                onClick={() => {
+                  this.setState({
+                    formType: "reset",
+                  });
+                }}
+              >
+                Esqueci a senha
+              </ResetPassword>
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  this.handlelogin(this.state.username, this.state.password);
+                  this.handleLogin(this.state.username, this.state.password);
                 }}
               >
                 login
@@ -177,6 +249,48 @@ export default class Login extends Component {
                   }
                 >
                   Create an account
+                </span>
+              </FormMessage>
+            </form>
+          )}
+          {this.state.formType === "reset" && (
+            <form>
+              <input
+                type="email"
+                placeholder="email"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  this.setState({
+                    resetData: {
+                      ...this.state.resetData,
+                      email: e.target.value,
+                    },
+                  });
+                }}
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log(this.state.resetData);
+                  this.handleReset();
+                }}
+              >
+                reset
+              </button>
+              <FormMessage>
+                <span
+                  onClick={() =>
+                    this.setState({
+                      formType: "login",
+                    })
+                  }
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Voltar
                 </span>
               </FormMessage>
             </form>

@@ -23,13 +23,16 @@ class App extends Component {
     },
   };
 
-  componentDidUpdate() {
-    if (this.state.pathname !== window.location.pathname) {
-      this.setState({ pathname: window.location.pathname });
-    }
-  }
+  // componentDidUpdate() {
+    
+  // }
 
   componentDidMount() {
+    setInterval(() => {
+      if (this.state.pathname !== window.location.pathname) {
+        this.setState({ pathname: window.location.pathname });
+      }
+    }, 10)
     // verifica se o token no localStorage é valido
     if (localStorage.getItem("token")) {
       api.post("/validatetoken", {

@@ -51,12 +51,29 @@ export const Form = styled.div`
     -webkit-transition: background 0.5 ease-in-out;
     transition: background 0.5 ease-in-out;
     cursor: pointer;
-    
+
     &:hover,
     &:active,
     &:focus {
       background: #8b74d7;
     }
+  }
+`;
+
+export const ResetPassword = styled.a`
+  color: #fff;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: block;
+  text-align: left;
+  font-weight: bold;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: #8b74d7;
+    text-decoration: underline;
+    cursor: pointer;
   }
 `;
 
