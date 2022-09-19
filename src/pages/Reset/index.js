@@ -46,15 +46,8 @@ export default class Login extends Component {
         password: this.state.password,
         confimPassword: this.state.confimPassword,
       })
-      .then(async (response) => {
-        if (response.data.token) {
-          await localStorage.setItem(
-            "userdata",
-            JSON.stringify(response.data.user)
-          );
-          await localStorage.setItem("token", response.data.token);
-          return (window.location.href = "/");
-        }
+      .then(async (_) => {
+          return (window.location.href = "/login");
       })
       .catch(({ response }) => {
         console.log(response.data);
