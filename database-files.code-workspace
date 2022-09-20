@@ -5,13 +5,15 @@
 		},
 		{
 			"path": "../database-files-backend"
+		},
+		{
+			"path": "../database-files-frontend-nextjs"
 		}
 	],
 	"settings": {
 		"git.allowForcePush": true,
 		"git.autofetch": true,
 		"git.confirmSync": false,
-		"git.enableSmartCommit": true,
-		"git.path": "C:\\Program Files\\Git\\cmd\\git.exe",
+		"git.enableSmartCommit": true
 	}
 }
