@@ -79,57 +79,6 @@ class App extends Component {
           marginTop: this.state.pathname === "/files" ? "-100px" : "-100px",
         }}
       >
-        {this.state.userdata._id && (
-          <motion.div
-            className="photo-profile"
-            initial={{
-              opacity: 0,
-              right: 0,
-              top: 0,
-              zIndex: 0,
-              height: 0,
-            }}
-            animate={{
-              opacity: 1,
-              right: 10,
-              top: 10,
-              zIndex: 1,
-              height: "auto",
-            }}
-            exit={{
-              opacity: 0,
-              right: 0,
-              top: 0,
-              zIndex: 0,
-              height: 0,
-            }}
-            transition={{ duration: 0.5 }}
-            style={{
-              position: "absolute",
-              display: window.localStorage.getItem("token") ? "block" : "none",
-              height: "50px",
-            }}
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("userdata");
-              window.location.href = "/login";
-            }}
-          >
-            <motion.img
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              style={{
-                width: "5rem",
-                height: "5rem",
-                borderRadius: "50%",
-                border: "1px solid #fff",
-                cursor: "pointer",
-              }}
-              src={`https://github.com/${this.state.userdata.username}.png`}
-              alt="Profile"
-            />
-          </motion.div>
-        )}
         <Router>
           <Routes>
             <Route path="/" exact element={<Home />} />
